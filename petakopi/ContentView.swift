@@ -6,21 +6,34 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+  @State private var region =
+    MKCoordinateRegion(
+      center:
+        CLLocationCoordinate2D(
+          latitude: 51.507222,
+          longitude: -0.1275
+        ),
+      span:
+        MKCoordinateSpan(
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05
+        )
+    )
+
+  var body: some View {
+    Map(
+      coordinateRegion: $region,
+      showsUserLocation: true
+    )
+    .ignoresSafeArea()
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }
