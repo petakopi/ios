@@ -9,23 +9,23 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-  @State private var viewModel = ContentViewModel()
+    @State private var viewModel = ContentViewModel()
 
-  var body: some View {
-    Map(
-      coordinateRegion: $viewModel.region,
-      showsUserLocation: true
-    )
-    .ignoresSafeArea()
-    .accentColor(Color(.systemPink))
-    .onAppear {
-      viewModel.checkIfLocationServiceIsEnabled()
+    var body: some View {
+        Map(
+            coordinateRegion: $viewModel.region,
+            showsUserLocation: true
+        )
+        .ignoresSafeArea()
+        .accentColor(Color(.systemPink))
+        .onAppear {
+            viewModel.checkIfLocationServiceIsEnabled()
+        }
     }
-  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+    static var previews: some View {
+        ContentView()
+    }
 }
