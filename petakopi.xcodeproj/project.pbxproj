@@ -11,6 +11,7 @@
 		87125DAF2A5999A000A02947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DAE2A5999A000A02947 /* ContentView.swift */; };
 		87125DB12A5999A200A02947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB02A5999A200A02947 /* Assets.xcassets */; };
 		87125DB42A5999A200A02947 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB32A5999A200A02947 /* Preview Assets.xcassets */; };
+		87125DBC2A59AA0300A02947 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DBB2A59AA0300A02947 /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		87125DB02A5999A200A02947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87125DB32A5999A200A02947 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		87125DBA2A599C1A00A02947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		87125DBB2A59AA0300A02947 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				87125DAE2A5999A000A02947 /* ContentView.swift */,
 				87125DB02A5999A200A02947 /* Assets.xcassets */,
 				87125DB22A5999A200A02947 /* Preview Content */,
+				87125DBB2A59AA0300A02947 /* ContentViewModel.swift */,
 			);
 			path = petakopi;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			files = (
 				87125DAF2A5999A000A02947 /* ContentView.swift in Sources */,
 				87125DAD2A5999A000A02947 /* petakopiApp.swift in Sources */,
+				87125DBC2A59AA0300A02947 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +277,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = petakopi/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -306,6 +311,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = petakopi/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

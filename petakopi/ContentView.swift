@@ -9,26 +9,18 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-  @State private var region =
-    MKCoordinateRegion(
-      center:
-        CLLocationCoordinate2D(
-          latitude: 51.507222,
-          longitude: -0.1275
-        ),
-      span:
-        MKCoordinateSpan(
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
-        )
-    )
+  @State private var viewModel = ContentViewModel()
 
   var body: some View {
     Map(
-      coordinateRegion: $region,
+      coordinateRegion: $viewModel.region,
       showsUserLocation: true
     )
     .ignoresSafeArea()
+    .accentColor(Color(.systemPink))
+    .onAppear {
+      viewModel.checkIfLocationServiceIsEnabled()
+    }
   }
 }
 
