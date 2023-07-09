@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
+    @Binding var checkpoints: [Checkpoint]
+
     var locationManager = CLLocationManager()
 
     func setupManager() {
@@ -28,5 +30,16 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        uiView.addAnnotations(checkpoints)
+    }
+}
+
+final class Checkpoint: NSObject, MKAnnotation {
+    let title: String?
+    let coordinate: CLLocationCoordinate2D
+
+    init(title: String?, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.coordinate = coordinate
     }
 }

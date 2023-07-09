@@ -9,8 +9,18 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
+    @State var checkpoints: [Checkpoint] = [
+        Checkpoint(
+            title: "Kopi Che Aminah",
+            coordinate: .init(
+                latitude: 3.032240368437851,
+                longitude: 101.46523714719324
+            )
+        )
+    ]
+
     var body: some View {
-        MapView()
+        MapView(checkpoints: $checkpoints)
             .ignoresSafeArea()
     }
 }
