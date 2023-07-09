@@ -7,9 +7,11 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 struct MapView: UIViewRepresentable {
     @Binding var checkpoints: [Checkpoint]
+    @ObservedObject var viewModel: MapViewModel
 
     var locationManager = CLLocationManager()
 
@@ -31,11 +33,27 @@ struct MapView: UIViewRepresentable {
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
 
+        viewModel.centerOnUserPublisher
+            .sink { [weak mapView] _ in
+                self.centerMapOnUserLocation(mapView)
+            }
+            .store(in: &context.coordinator.cancellables)
+
         return mapView
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.addAnnotations(checkpoints)
+    }
+
+    private func centerMapOnUserLocation(_ mapView: MKMapView?) {
+        if let userLocation = mapView?.userLocation.location {
+            let regionRadius: CLLocationDistance = 1000
+            let coordinateRegion = MKCoordinateRegion(center: userLocation.coordinate,
+                                                      latitudinalMeters: regionRadius,
+                                                      longitudinalMeters: regionRadius)
+            mapView?.setRegion(coordinateRegion, animated: true)
+        }
     }
 }
 
@@ -53,6 +71,7 @@ final class Checkpoint: NSObject, MKAnnotation {
 
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
     var parent: MapView
+    var cancellables = Set<AnyCancellable>()
 
     init(_ parent: MapView) {
         self.parent = parent
