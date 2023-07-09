@@ -8,25 +8,38 @@
 import SwiftUI
 import MapKit
 
+import Foundation
+
 struct ContentView: View {
-    @State var checkpoints: [Checkpoint] = [
-        Checkpoint(
-            title: "Kopi Che Aminah",
-            coordinate: .init(
-                latitude: 3.032240368437851,
-                longitude: 101.46523714719324
-            )
-        )
-    ]
+    @State var checkpoints: [Checkpoint] = []
+    @State private var coffeeShops: [CoffeeShop] = []
 
     var body: some View {
         MapView(checkpoints: $checkpoints)
             .ignoresSafeArea()
+            .task {
+                do {
+                    coffeeShops = try await CoffeeShopLoader.shared.call()
+                    updateCheckpoints()
+                } catch {
+                    // Handle the error
+                    print("Failed to load JSON data: \(error)")
+                }
+            }
     }
-}
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    func updateCheckpoints() {
+        checkpoints = coffeeShops.compactMap { coffeeShop in
+            guard let lat = coffeeShop.lat, let lng = coffeeShop.lng else {
+                return nil
+            }
+            return Checkpoint(
+                title: coffeeShop.name,
+                coordinate: .init(
+                    latitude: lat,
+                    longitude: lng
+                )
+            )
+        }
     }
 }

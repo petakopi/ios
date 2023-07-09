@@ -12,6 +12,8 @@
 		87125DB12A5999A200A02947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB02A5999A200A02947 /* Assets.xcassets */; };
 		87125DB42A5999A200A02947 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB32A5999A200A02947 /* Preview Assets.xcassets */; };
 		87125DBE2A5A431D00A02947 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DBD2A5A431D00A02947 /* MapView.swift */; };
+		87125DC12A5A650800A02947 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DC02A5A650800A02947 /* CoffeeShop.swift */; };
+		87125DC42A5A65CC00A02947 /* CoffeeShopLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DC32A5A65CC00A02947 /* CoffeeShopLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		87125DB32A5999A200A02947 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		87125DBA2A599C1A00A02947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		87125DBD2A5A431D00A02947 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		87125DC02A5A650800A02947 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
+		87125DC32A5A65CC00A02947 /* CoffeeShopLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		87125DAB2A5999A000A02947 /* petakopi */ = {
 			isa = PBXGroup;
 			children = (
+				87125DC22A5A65AF00A02947 /* Services */,
+				87125DBF2A5A64F500A02947 /* Models */,
 				87125DBA2A599C1A00A02947 /* Info.plist */,
 				87125DAC2A5999A000A02947 /* petakopiApp.swift */,
 				87125DAE2A5999A000A02947 /* ContentView.swift */,
@@ -70,6 +76,22 @@
 				87125DB32A5999A200A02947 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		87125DBF2A5A64F500A02947 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87125DC02A5A650800A02947 /* CoffeeShop.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		87125DC22A5A65AF00A02947 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				87125DC32A5A65CC00A02947 /* CoffeeShopLoader.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +165,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				87125DAF2A5999A000A02947 /* ContentView.swift in Sources */,
+				87125DC42A5A65CC00A02947 /* CoffeeShopLoader.swift in Sources */,
+				87125DC12A5A650800A02947 /* CoffeeShop.swift in Sources */,
 				87125DBE2A5A431D00A02947 /* MapView.swift in Sources */,
 				87125DAD2A5999A000A02947 /* petakopiApp.swift in Sources */,
 			);
