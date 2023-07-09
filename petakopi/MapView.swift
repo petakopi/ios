@@ -69,7 +69,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
-            annotationView?.markerTintColor = .brown
             annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
 
