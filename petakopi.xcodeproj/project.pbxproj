@@ -11,7 +11,7 @@
 		87125DAF2A5999A000A02947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DAE2A5999A000A02947 /* ContentView.swift */; };
 		87125DB12A5999A200A02947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB02A5999A200A02947 /* Assets.xcassets */; };
 		87125DB42A5999A200A02947 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB32A5999A200A02947 /* Preview Assets.xcassets */; };
-		87125DBC2A59AA0300A02947 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DBB2A59AA0300A02947 /* ContentViewModel.swift */; };
+		87125DBE2A5A431D00A02947 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DBD2A5A431D00A02947 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +21,7 @@
 		87125DB02A5999A200A02947 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87125DB32A5999A200A02947 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		87125DBA2A599C1A00A02947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		87125DBB2A59AA0300A02947 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		87125DBD2A5A431D00A02947 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 				87125DAE2A5999A000A02947 /* ContentView.swift */,
 				87125DB02A5999A200A02947 /* Assets.xcassets */,
 				87125DB22A5999A200A02947 /* Preview Content */,
-				87125DBB2A59AA0300A02947 /* ContentViewModel.swift */,
+				87125DBD2A5A431D00A02947 /* MapView.swift */,
 			);
 			path = petakopi;
 			sourceTree = "<group>";
@@ -143,8 +143,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				87125DAF2A5999A000A02947 /* ContentView.swift in Sources */,
+				87125DBE2A5A431D00A02947 /* MapView.swift in Sources */,
 				87125DAD2A5999A000A02947 /* petakopiApp.swift in Sources */,
-				87125DBC2A59AA0300A02947 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

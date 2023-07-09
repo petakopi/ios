@@ -9,18 +9,9 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-    @State private var viewModel = ContentViewModel()
-
     var body: some View {
-        Map(
-            coordinateRegion: $viewModel.region,
-            showsUserLocation: true
-        )
-        .ignoresSafeArea()
-        .accentColor(Color(.systemPink))
-        .onAppear {
-            viewModel.checkIfLocationServiceIsEnabled()
-        }
+        MapView()
+            .ignoresSafeArea()
     }
 }
 
