@@ -14,7 +14,7 @@ class CoffeeShopLoader {
         let url = URL(string: "https://petakopi.my/api/v1/coffee_shops.json")!
         let (data, _) = try await URLSession.shared.data(from: url)
         let coffeeShops = try JSONDecoder().decode([CoffeeShop].self, from: data)
-
+        
         return coffeeShops
     }
 }
