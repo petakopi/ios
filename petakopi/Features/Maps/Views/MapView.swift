@@ -7,7 +7,6 @@
 
 import SwiftUI
 import MapKit
-import Combine
 
 struct MapView: UIViewRepresentable {
     @Binding var checkpoints: [Checkpoint]

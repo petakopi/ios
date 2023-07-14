@@ -6,13 +6,6 @@
 //
 
 import SwiftUI
-import MapKit
-import Combine
-import Foundation
-
-class MapViewModel: ObservableObject {
-    let centerOnUserPublisher = PassthroughSubject<Void, Never>()
-}
 
 struct ContentView: View {
     @State var checkpoints: [Checkpoint] = []
@@ -65,5 +58,11 @@ struct ContentView: View {
                 )
             )
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
