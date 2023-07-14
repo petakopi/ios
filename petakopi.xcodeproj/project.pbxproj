@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		871005162A61FC9B00EBD85B /* Checkpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871005152A61FC9B00EBD85B /* Checkpoint.swift */; };
+		871005182A61FD1900EBD85B /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871005172A61FD1900EBD85B /* MapCoordinator.swift */; };
 		87125DAD2A5999A000A02947 /* petakopiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DAC2A5999A000A02947 /* petakopiApp.swift */; };
 		87125DAF2A5999A000A02947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DAE2A5999A000A02947 /* ContentView.swift */; };
 		87125DB12A5999A200A02947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB02A5999A200A02947 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		871005152A61FC9B00EBD85B /* Checkpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoint.swift; sourceTree = "<group>"; };
+		871005172A61FD1900EBD85B /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		87125DA92A5999A000A02947 /* petakopi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = petakopi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87125DAC2A5999A000A02947 /* petakopiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = petakopiApp.swift; sourceTree = "<group>"; };
 		87125DAE2A5999A000A02947 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +51,48 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		871005102A61FC5900EBD85B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				871005112A61FC6700EBD85B /* Maps */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		871005112A61FC6700EBD85B /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				871005142A61FC8700EBD85B /* Helpers */,
+				871005132A61FC8000EBD85B /* Models */,
+				871005122A61FC7B00EBD85B /* Views */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		871005122A61FC7B00EBD85B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				87125DBD2A5A431D00A02947 /* MapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		871005132A61FC8000EBD85B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				871005152A61FC9B00EBD85B /* Checkpoint.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		871005142A61FC8700EBD85B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				871005172A61FD1900EBD85B /* MapCoordinator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		87125DA02A5999A000A02947 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +112,7 @@
 		87125DAB2A5999A000A02947 /* petakopi */ = {
 			isa = PBXGroup;
 			children = (
+				871005102A61FC5900EBD85B /* Features */,
 				8710050E2A61F96400EBD85B /* Views */,
 				87125DC22A5A65AF00A02947 /* Services */,
 				87125DBF2A5A64F500A02947 /* Models */,
@@ -73,7 +120,6 @@
 				87125DAC2A5999A000A02947 /* petakopiApp.swift */,
 				87125DB02A5999A200A02947 /* Assets.xcassets */,
 				87125DB22A5999A200A02947 /* Preview Content */,
-				87125DBD2A5A431D00A02947 /* MapView.swift */,
 			);
 			path = petakopi;
 			sourceTree = "<group>";
@@ -174,9 +220,11 @@
 			files = (
 				87125DAF2A5999A000A02947 /* ContentView.swift in Sources */,
 				87125DC42A5A65CC00A02947 /* CoffeeShopLoader.swift in Sources */,
+				871005182A61FD1900EBD85B /* MapCoordinator.swift in Sources */,
 				87125DC12A5A650800A02947 /* CoffeeShop.swift in Sources */,
 				87125DBE2A5A431D00A02947 /* MapView.swift in Sources */,
 				87125DAD2A5999A000A02947 /* petakopiApp.swift in Sources */,
+				871005162A61FC9B00EBD85B /* Checkpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
