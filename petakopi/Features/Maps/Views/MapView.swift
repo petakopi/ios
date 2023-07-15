@@ -13,6 +13,7 @@ struct MapView: UIViewRepresentable {
     @ObservedObject var viewModel: MapViewModel
 
     var locationManager = CLLocationManager()
+    var didSelectAnnotation: ((MKAnnotation) -> Void)?
 
     func setupManager() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -20,7 +21,10 @@ struct MapView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> MapViewCoordinator {
-        MapViewCoordinator(self)
+        let coordinator = MapViewCoordinator(self)
+        coordinator.didSelectAnnotation = didSelectAnnotation
+
+        return coordinator
     }
 
     func makeUIView(context: Context) -> MKMapView {

@@ -11,6 +11,7 @@ import Combine
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
     var parent: MapView
     var cancellables = Set<AnyCancellable>()
+    var didSelectAnnotation: ((MKAnnotation) -> Void)?
 
     init(_ parent: MapView) {
         self.parent = parent
@@ -26,16 +27,22 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 
         if annotationView == nil {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            annotationView?.canShowCallout = false
+            annotationView?.isUserInteractionEnabled = true
+        } else {
+            annotationView?.annotation = annotation
         }
 
         return annotationView
     }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let checkpoint = view.annotation as? Checkpoint, let urlString = checkpoint.subtitle, let url = URL(string: urlString) {
-            UIApplication.shared.open(url)
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let checkpoint = view.annotation as? Checkpoint {
+            didSelectAnnotation?(checkpoint)
         }
     }
+}
+
+protocol MapViewCoordinatorDelegate: AnyObject {
+    func didSelectAnnotation(_ annotation: MKAnnotation)
 }

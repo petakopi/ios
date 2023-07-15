@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     @State var checkpoints: [Checkpoint] = []
+    @State var showingBottomSheet = false
     @State private var coffeeShops: [CoffeeShop] = []
     @StateObject var viewModel = MapViewModel()
 
     var body: some View {
         ZStack {
-            MapView(checkpoints: $checkpoints, viewModel: viewModel)
+            MapView(checkpoints: $checkpoints, viewModel: viewModel) { annotation in
+                showingBottomSheet.toggle()
+            }
                 .ignoresSafeArea()
                 .task {
                     do {
@@ -30,7 +33,7 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
-                    viewModel.centerOnUserPublisher.send()
+                     viewModel.centerOnUserPublisher.send()
                 }) {
                     Text("My Location")
                         .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
@@ -40,6 +43,10 @@ struct ContentView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
+            }
+            .sheet(isPresented: $showingBottomSheet) {
+                BottomSheetView()
+                    .presentationDetents([.fraction(0.25)])
             }
         }
     }
@@ -57,6 +64,14 @@ struct ContentView: View {
                     longitude: lng
                 )
             )
+        }
+    }
+}
+
+struct BottomSheetView: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "star")
         }
     }
 }
