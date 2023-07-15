@@ -58,7 +58,7 @@ struct ContentView: View {
             }
             return Checkpoint(
                 title: coffeeShop.name,
-                subtitle: coffeeShop.url,
+                subtitle: nil,
                 coordinate: .init(
                     latitude: lat,
                     longitude: lng

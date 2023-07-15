@@ -28,7 +28,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = false
-            annotationView?.isUserInteractionEnabled = true
         } else {
             annotationView?.annotation = annotation
         }
