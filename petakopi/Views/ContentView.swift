@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
     @State var checkpoints: [Checkpoint] = []
     @State var showingBottomSheet = false
     @State private var coffeeShops: [CoffeeShop] = []
+    @State private var selectedAnnotation: MKAnnotation?
     @StateObject var viewModel = MapViewModel()
 
     var body: some View {
         ZStack {
             MapView(checkpoints: $checkpoints, viewModel: viewModel) { annotation in
+                selectedAnnotation = annotation
                 showingBottomSheet.toggle()
             }
                 .ignoresSafeArea()
@@ -44,7 +47,11 @@ struct ContentView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
             }
-            .sheet(isPresented: $showingBottomSheet) {
+            .sheet(isPresented: $showingBottomSheet, onDismiss: {
+                if let annotation = selectedAnnotation {
+                    viewModel.unselect(annotation: annotation)
+                }
+            }) {
                 BottomSheetView()
                     .presentationDetents([.fraction(0.25)])
             }

@@ -32,6 +32,7 @@ struct MapView: UIViewRepresentable {
 
         let mapView = MKMapView(frame: UIScreen.main.bounds)
 
+        viewModel.mapView = mapView
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
