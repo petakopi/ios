@@ -13,20 +13,29 @@ struct ContentView: View {
     @State var showingBottomSheet = false
     @State private var coffeeShops: [CoffeeShop] = []
     @State private var selectedAnnotation: MKAnnotation?
+    @State private var selectedCoffeeShop: CoffeeShop?
     @StateObject var viewModel = MapViewModel()
 
     var body: some View {
         ZStack {
             MapView(checkpoints: $checkpoints, viewModel: viewModel) { annotation in
-                selectedAnnotation = annotation
-
                 if let checkpoint = annotation as? Checkpoint {
-                    #if DEBUG
-                    print("Slug: \(checkpoint.data.slug)")
-                    #endif
-                }
+                    Task.init {
+                        do {
+                            selectedAnnotation = checkpoint
+                            selectedCoffeeShop = checkpoint.data
 
-                showingBottomSheet.toggle()
+                            let slug = selectedCoffeeShop?.slug ?? ""
+                            let detailedCoffeeShop = try await CoffeeShopLoader.shared.show(slug: slug)
+
+                            DispatchQueue.main.async {
+                                showingBottomSheet.toggle()
+                            }
+                        } catch {
+                            print("Failed to load data")
+                        }
+                    }
+                }
             }
                 .ignoresSafeArea()
                 .task {
@@ -59,9 +68,14 @@ struct ContentView: View {
                     viewModel.unselect(annotation: annotation)
                 }
             }) {
-                BottomSheetView()
-                    .presentationDetents([.fraction(0.25)])
+                if let coffeeShop = selectedCoffeeShop {
+                    BottomSheetView(coffeeShop: coffeeShop)
+                        .presentationDetents([.fraction(0.25)])
+                } else {
+                    EmptyView()
+                }
             }
+
         }
     }
 
@@ -86,8 +100,13 @@ struct ContentView: View {
 }
 
 struct BottomSheetView: View {
+    var coffeeShop: CoffeeShop
+
     var body: some View {
-        HStack {
+        VStack {
+            Text(coffeeShop.slug)
+                .font(.title)
+                .padding()
             Image(systemName: "star")
         }
     }

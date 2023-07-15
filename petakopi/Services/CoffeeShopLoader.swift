@@ -25,7 +25,7 @@ class CoffeeShopLoader {
     }
 
     func show(slug: String) async throws -> CoffeeShop {
-        let url = URL(string: "\(baseURL)/\(slug).json")!
+        let url = URL(string: "\(baseURL)/coffee_shops/\(slug).json")!
         let (data, _) = try await URLSession.shared.data(from: url)
         let coffeeShop = try JSONDecoder().decode(CoffeeShop.self, from: data)
 
