@@ -19,12 +19,19 @@ struct ContentView: View {
         ZStack {
             MapView(checkpoints: $checkpoints, viewModel: viewModel) { annotation in
                 selectedAnnotation = annotation
+
+                if let checkpoint = annotation as? Checkpoint {
+                    #if DEBUG
+                    print("Slug: \(checkpoint.data.slug)")
+                    #endif
+                }
+
                 showingBottomSheet.toggle()
             }
                 .ignoresSafeArea()
                 .task {
                     do {
-                        coffeeShops = try await CoffeeShopLoader.shared.call()
+                        coffeeShops = try await CoffeeShopLoader.shared.index()
                         updateCheckpoints()
                     } catch {
                         // Handle the error
@@ -63,16 +70,19 @@ struct ContentView: View {
             guard let lat = coffeeShop.lat, let lng = coffeeShop.lng else {
                 return nil
             }
+
             return Checkpoint(
                 title: coffeeShop.name,
                 subtitle: nil,
                 coordinate: .init(
                     latitude: lat,
                     longitude: lng
-                )
+                ),
+                data: coffeeShop
             )
         }
     }
+
 }
 
 struct BottomSheetView: View {

@@ -8,7 +8,7 @@
 import Foundation
 
 struct CoffeeShop: Codable {
-    let id: Int
+    let slug: String
     let name: String
     let url: String
 
@@ -24,7 +24,7 @@ struct CoffeeShop: Codable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id
+        case slug
         case name
         case url
         case latString = "lat"
