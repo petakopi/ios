@@ -11,26 +11,24 @@ import MapKit
 struct ContentView: View {
     @State var checkpoints: [Checkpoint] = []
     @State var showingBottomSheet = false
+
     @State private var coffeeShops: [CoffeeShop] = []
+    @State private var coffeeShop: CoffeeShop?
     @State private var selectedAnnotation: MKAnnotation?
-    @State private var selectedCoffeeShop: CoffeeShop?
+
     @StateObject var viewModel = MapViewModel()
 
     var body: some View {
         ZStack {
             MapView(checkpoints: $checkpoints, viewModel: viewModel) { annotation in
+                selectedAnnotation = annotation
+
                 if let checkpoint = annotation as? Checkpoint {
+                    let selectedCoffeeShopSlug = checkpoint.data.id
+
                     Task.init {
                         do {
-                            selectedAnnotation = checkpoint
-                            selectedCoffeeShop = checkpoint.data
-
-                            let slug = selectedCoffeeShop?.slug ?? ""
-                            let detailedCoffeeShop = try await CoffeeShopLoader.shared.show(slug: slug)
-
-                            DispatchQueue.main.async {
-                                showingBottomSheet.toggle()
-                            }
+                            coffeeShop = try await CoffeeShopLoader.shared.show(slug: selectedCoffeeShopSlug )
                         } catch {
                             print("Failed to load data")
                         }
@@ -63,17 +61,15 @@ struct ContentView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
             }
-            .sheet(isPresented: $showingBottomSheet, onDismiss: {
+            .sheet(item: $coffeeShop, onDismiss: {
                 if let annotation = selectedAnnotation {
                     viewModel.unselect(annotation: annotation)
                 }
-            }) {
-                if let coffeeShop = selectedCoffeeShop {
-                    BottomSheetView(coffeeShop: coffeeShop)
-                        .presentationDetents([.fraction(0.25)])
-                } else {
-                    EmptyView()
-                }
+
+                coffeeShop = nil
+            }) { coffeeShop in
+                BottomSheetView(coffeeShop: coffeeShop)
+                    .presentationDetents([.fraction(0.25)])
             }
 
         }
@@ -104,10 +100,8 @@ struct BottomSheetView: View {
 
     var body: some View {
         VStack {
-            Text(coffeeShop.slug)
-                .font(.title)
+            Text(coffeeShop.name)
                 .padding()
-            Image(systemName: "star")
         }
     }
 }
