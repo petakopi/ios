@@ -69,7 +69,7 @@ struct ContentView: View {
                 coffeeShop = nil
             }) { coffeeShop in
                 BottomSheetView(coffeeShop: coffeeShop)
-                    .presentationDetents([.fraction(0.25)])
+                    .presentationDetents([.fraction(0.5)])
             }
 
         }
@@ -100,7 +100,7 @@ struct BottomSheetView: View {
     let imageSize: CGFloat = 60
 
     var body: some View {
-        ScrollView {
+        VStack {
             HStack(alignment: .center) {
                 if let logoUrl = coffeeShop.logoUrl,
                    let url = URL(string: logoUrl) {
@@ -132,10 +132,35 @@ struct BottomSheetView: View {
 
                 Spacer() // Pushes content to the left
             }
-            .padding()
+            .padding(.top, 20)
+            .padding(.horizontal, 20)
+            List {
+                ForEach(coffeeShop.links ?? [], id: \.name) { item in
+                    Link(destination: URL(string: item.url)!, label: {
+                        HStack {
+                            Text(item.name)
+                                .font(.caption)
+                                .foregroundColor(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.vertical, 8)
+                    })
+                }
+            }
+            .listStyle(PlainListStyle())
+            .onAppear {
+                UITableView.appearance().isScrollEnabled = false
+            }
+            .onDisappear {
+                UITableView.appearance().isScrollEnabled = true
+            }
+            .padding(.horizontal)
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

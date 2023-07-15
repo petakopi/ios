@@ -12,6 +12,7 @@ struct CoffeeShop: Identifiable, Codable {
     let name: String
     let logoUrl: String?
     let url: String
+    let links: [LinkItem]?
     let tags: [String]?
 
     private let latString: String
@@ -30,8 +31,14 @@ struct CoffeeShop: Identifiable, Codable {
         case name
         case logoUrl = "logo_url"
         case url
+        case links
         case tags
         case latString = "lat"
         case lngString = "lng"
     }
+}
+
+struct LinkItem: Codable {
+    let name: String
+    let url: String
 }
