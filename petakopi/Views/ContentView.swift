@@ -97,11 +97,42 @@ struct ContentView: View {
 
 struct BottomSheetView: View {
     var coffeeShop: CoffeeShop
+    let imageSize: CGFloat = 60
 
     var body: some View {
-        VStack {
-            Text(coffeeShop.name)
-                .padding()
+        ScrollView {
+            HStack(alignment: .center) {
+                if let logoUrl = coffeeShop.logoUrl,
+                   let url = URL(string: logoUrl) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipShape(Circle())
+                            .frame(width: imageSize, height: imageSize)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(Circle())
+                        .frame(width: imageSize, height: imageSize)
+                }
+
+                VStack(alignment: .leading) {
+                    Text(coffeeShop.name)
+                        .font(.headline)
+                    Text(coffeeShop.tags?.joined(separator: ", ") ?? "")
+                        .font(.caption2)
+                        .padding(.top, 2)
+                }
+                .padding(.leading)
+
+                Spacer() // Pushes content to the left
+            }
+            .padding()
         }
     }
 }
