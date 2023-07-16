@@ -69,7 +69,7 @@ struct ContentView: View {
                 coffeeShop = nil
             }) { coffeeShop in
                 BottomSheetView(coffeeShop: coffeeShop)
-                    .presentationDetents([.fraction(0.5)])
+                    .presentationDetents([.fraction(0.5), .large])
             }
 
         }
@@ -92,7 +92,6 @@ struct ContentView: View {
             )
         }
     }
-
 }
 
 struct BottomSheetView: View {
@@ -130,33 +129,31 @@ struct BottomSheetView: View {
                 }
                 .padding(.leading)
 
-                Spacer() // Pushes content to the left
+                Spacer()
             }
             .padding(.top, 20)
             .padding(.horizontal, 20)
-            List {
-                ForEach(coffeeShop.links ?? [], id: \.name) { item in
-                    Link(destination: URL(string: item.url)!, label: {
-                        HStack {
-                            Text(item.name)
-                                .font(.caption)
+
+            VStack(alignment: .leading) {
+                List {
+                    Section(header: Text("Links")) {
+                        ForEach(coffeeShop.links ?? [], id: \.url) { item in
+                            if let url = URL(string: item.url) {
+                                Link(destination: url) {
+                                    HStack {
+                                        Text(item.name)
+                                        Spacer()
+                                        Image(systemName: "arrow.up.right.square")
+                                    }
+                                }
                                 .foregroundColor(.primary)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
+                            }
                         }
-                        .padding(.vertical, 8)
-                    })
+                    }
                 }
+                .listStyle(InsetGroupedListStyle())
             }
-            .listStyle(PlainListStyle())
-            .onAppear {
-                UITableView.appearance().isScrollEnabled = false
-            }
-            .onDisappear {
-                UITableView.appearance().isScrollEnabled = true
-            }
-            .padding(.horizontal)
+            .padding(.top, 10)
         }
     }
 }
