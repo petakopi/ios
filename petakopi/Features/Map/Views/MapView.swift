@@ -30,10 +30,12 @@ class ViewController: UIViewController {
 
         let option = MapInitOptions(
             resourceOptions: ResourceOptions(accessToken: token),
-            cameraOptions: CameraOptions(center: tokyoStation, zoom: 14.5)
+            cameraOptions: CameraOptions(center: tokyoStation, zoom: 14.5),
+            styleURI: StyleURI.streets
         )
         mapView = MapView(frame: view.bounds, mapInitOptions: option)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.ornaments.options.scaleBar.visibility = .hidden
 
         self.view.addSubview(mapView)
     }
