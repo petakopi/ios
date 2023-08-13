@@ -13,6 +13,8 @@
 		87125DB42A5999A200A02947 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87125DB32A5999A200A02947 /* Preview Assets.xcassets */; };
 		87125DC12A5A650800A02947 /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DC02A5A650800A02947 /* CoffeeShop.swift */; };
 		87125DC42A5A65CC00A02947 /* CoffeeShopLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87125DC32A5A65CC00A02947 /* CoffeeShopLoader.swift */; };
+		87F444582A8923F8002CBFD3 /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 87F444572A8923F8002CBFD3 /* MapboxMaps */; };
+		87F4445C2A892438002CBFD3 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4445B2A892438002CBFD3 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,7 @@
 		87125DBA2A599C1A00A02947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		87125DC02A5A650800A02947 /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 		87125DC32A5A65CC00A02947 /* CoffeeShopLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopLoader.swift; sourceTree = "<group>"; };
+		87F4445B2A892438002CBFD3 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87F444582A8923F8002CBFD3 /* MapboxMaps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +52,7 @@
 		871005102A61FC5900EBD85B /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				87F444592A892415002CBFD3 /* Map */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -107,6 +112,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		87F444592A892415002CBFD3 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				87F4445A2A89241A002CBFD3 /* Views */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		87F4445A2A89241A002CBFD3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				87F4445B2A892438002CBFD3 /* MapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -117,12 +138,16 @@
 				87125DA52A5999A000A02947 /* Sources */,
 				87125DA62A5999A000A02947 /* Frameworks */,
 				87125DA72A5999A000A02947 /* Resources */,
+				87F4445D2A892588002CBFD3 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = petakopi;
+			packageProductDependencies = (
+				87F444572A8923F8002CBFD3 /* MapboxMaps */,
+			);
 			productName = petakopi;
 			productReference = 87125DA92A5999A000A02947 /* petakopi.app */;
 			productType = "com.apple.product-type.application";
@@ -151,6 +176,9 @@
 				Base,
 			);
 			mainGroup = 87125DA02A5999A000A02947;
+			packageReferences = (
+				87F444562A8923F8002CBFD3 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+			);
 			productRefGroup = 87125DAA2A5999A000A02947 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -172,6 +200,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		87F4445D2A892588002CBFD3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Look for a global file named 'mapbox' or '.mapbox' within the home directory\ntoken_file=.mapbox\n\ntoken=\"$(cat $token_file 2>/dev/null)\"\nif [ \"$token\" ]; then\n  plutil -replace MBXAccessToken -string $token \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\nelse\n  echo 'warning: Missing Mapbox access token'\n  open 'https://account.mapbox.com/access-tokens/'\n  echo \"warning: Get an access token from <https://account.mapbox.com/access-tokens/>, then create a new file at $token_file that contains the access token.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		87125DA52A5999A000A02947 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -179,6 +228,7 @@
 			files = (
 				87125DAF2A5999A000A02947 /* ContentView.swift in Sources */,
 				87125DC42A5A65CC00A02947 /* CoffeeShopLoader.swift in Sources */,
+				87F4445C2A892438002CBFD3 /* MapView.swift in Sources */,
 				87125DC12A5A650800A02947 /* CoffeeShop.swift in Sources */,
 				87125DAD2A5999A000A02947 /* petakopiApp.swift in Sources */,
 			);
@@ -403,6 +453,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		87F444562A8923F8002CBFD3 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		87F444572A8923F8002CBFD3 /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 87F444562A8923F8002CBFD3 /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 87125DA12A5999A000A02947 /* Project object */;
 }
