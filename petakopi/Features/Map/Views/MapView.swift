@@ -53,6 +53,14 @@ class ViewController: UIViewController {
             // Ensure it will set the camera to the current location
             self.locationUpdate(newLocation: mapView.location.latestLocation!)
         }
+
+        let loc = CLLocationCoordinate2D(latitude: 3.1575732144536355, longitude: 101.71174101512028)
+        var pointAnnotation = PointAnnotation(coordinate: loc)
+        pointAnnotation.image = .init(image: UIImage(named: "red_marker")!, name: "red_marker")
+
+        let pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
+
+        pointAnnotationManager.annotations = [pointAnnotation]
     }
 }
 
