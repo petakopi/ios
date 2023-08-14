@@ -21,7 +21,10 @@ struct MapViewWrapper : UIViewControllerRepresentable {
 class ViewController: UIViewController {
 
     internal var mapView: MapView!
-    private let tokyoStation = CLLocationCoordinate2D(latitude: 35.6812, longitude: 139.7671)
+    private let klcc = CLLocationCoordinate2D(
+        latitude: 3.1575732144536355,
+        longitude: 101.71174101512028
+    )
 
     private var cameraLocationConsumer: CameraLocationConsumer!
 
@@ -29,7 +32,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         let option = MapInitOptions(
-            cameraOptions: CameraOptions(center: tokyoStation, zoom: 14.5),
+            cameraOptions: CameraOptions(center: klcc, zoom: 14.5),
             styleURI: StyleURI.streets
         )
         mapView = MapView(frame: view.bounds, mapInitOptions: option)
@@ -48,18 +51,25 @@ class ViewController: UIViewController {
 
         cameraLocationConsumer = CameraLocationConsumer(mapView: mapView)
 
-        // Allows the delegate to receive information about map events.
-        mapView.mapboxMap.onNext(event: .mapLoaded) { [weak self] _ in
-            guard let self = self else { return }
-            // Register the location consumer with the map
-            // Note that the location manager holds weak references to consumers, which should be retained
-            self.mapView.location.addLocationConsumer(newConsumer: self.cameraLocationConsumer)
+        mapView.mapboxMap.onNext(event: .mapLoaded) { [self]_ in
+            // Ensure it will set the camera to the current location
+            self.locationUpdate(newLocation: mapView.location.latestLocation!)
 
+            // Ensure the camera will follow the puck when we move
+            // TODO: Add option to stop following which is helpful if using the app while driving
+            self.mapView.location.addLocationConsumer(newConsumer: self.cameraLocationConsumer)
         }
     }
 }
 
-// Create class which conforms to LocationConsumer, update the camera's centerCoordinate when a locationUpdate is received
+extension ViewController: LocationPermissionsDelegate, LocationConsumer {
+    func locationUpdate(newLocation: Location) {
+        mapView.camera.fly(to: CameraOptions(center: newLocation.coordinate, zoom: 14.0), duration: 5.0)
+    }
+}
+
+// Create class which conforms to LocationConsumer,
+// update the camera's centerCoordinate when a locationUpdate is received
 public class CameraLocationConsumer: LocationConsumer {
     weak var mapView: MapView?
 
