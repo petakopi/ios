@@ -9,7 +9,19 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
+    @State private var coffeeShops: [CoffeeShop] = []
+
     var body: some View {
-        MapViewWrapper()
+        VStack {
+            MapViewWrapper(coffeeShops: coffeeShops)
+        }
+        .task {
+            do {
+                coffeeShops = try await CoffeeShopLoader.shared.index()
+            } catch {
+                // Handle the error
+                print("[ERROR] Failed to load JSON data: \(error)")
+            }
+        }
     }
 }

@@ -9,13 +9,18 @@ import SwiftUI
 import MapboxMaps
 
 struct MapViewWrapper : UIViewControllerRepresentable {
+    var coffeeShops: [CoffeeShop]
 
     func makeUIViewController(context: Context) -> ViewController {
-        return ViewController()
+        let viewController = ViewController()
+
+        viewController.coffeeShops = coffeeShops
+
+        return viewController
     }
 
     func updateUIViewController(_ uiViewController: ViewController, context: Context) {
-
+        uiViewController.coffeeShops = coffeeShops
     }
 }
 
@@ -26,6 +31,11 @@ class ViewController: UIViewController {
         latitude: 3.1575732144536355,
         longitude: 101.71174101512028
     )
+    var coffeeShops: [CoffeeShop] = [] {
+        didSet {
+            updateAnnotations(for: coffeeShops)
+        }
+    }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -53,14 +63,26 @@ class ViewController: UIViewController {
             // Ensure it will set the camera to the current location
             self.locationUpdate(newLocation: mapView.location.latestLocation!)
         }
+    }
 
-        let loc = CLLocationCoordinate2D(latitude: 3.1575732144536355, longitude: 101.71174101512028)
-        var pointAnnotation = PointAnnotation(coordinate: loc)
-        pointAnnotation.image = .init(image: UIImage(named: "red_marker")!, name: "red_marker")
+    func updateAnnotations(for shops: [CoffeeShop]) {
+        guard let mapView = mapView else {
+            return
+        }
+
+        var annotations: [PointAnnotation] = []
+        for shop in shops {
+            if let lat = shop.lat, let lng = shop.lng {
+                let location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                var pointAnnotation = PointAnnotation(coordinate: location)
+                pointAnnotation.image = .init(image: UIImage(named: "red_marker")!, name: "red_marker")
+
+                annotations.append(pointAnnotation)
+            }
+        }
 
         let pointAnnotationManager = mapView.annotations.makePointAnnotationManager()
-
-        pointAnnotationManager.annotations = [pointAnnotation]
+        pointAnnotationManager.annotations = annotations
     }
 }
 
